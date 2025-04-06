@@ -1,4 +1,5 @@
 import { collection, getDocs, query, where, addDoc, doc, updateDoc } from "firebase/firestore";
+import { setDoc } from "firebase/firestore";
 // import { db } from "./firebase";
 import { db } from "../config/firebase";
 import { getFingerprint } from "./fingerprintjs";
@@ -36,9 +37,9 @@ export const claimDiscount = async () => {
     claimed: true,
   });
 
-  await addDoc(claimsRef, {
-    fingerprint,
+  await setDoc(doc(db, "claims", fingerprint), {
     code: codeData.code,
+    fingerprint,
     claimedAt: new Date(),
   });
 
