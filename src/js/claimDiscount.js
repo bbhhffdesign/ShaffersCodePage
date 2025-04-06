@@ -5,6 +5,7 @@ import { getFingerprint } from "./fingerprintjs";
 
 export const claimDiscount = async () => {
   const fingerprint = await getFingerprint();
+  console.log("Fingerprint:", fingerprint);
 
   // Verifica si este usuario ya reclamó
   const claimsRef = collection(db, "claims");
@@ -13,6 +14,7 @@ export const claimDiscount = async () => {
 
   if (!existing.empty) {
     const docSnap = existing.docs[0];
+    console.log("Usuario ya tiene código:", docSnap.data().code);
     return { code: docSnap.data().code, alreadyClaimed: true };
   }
 
@@ -21,6 +23,8 @@ export const claimDiscount = async () => {
   const available = query(codesRef, where("claimed", "==", false));
   const codeDocs = await getDocs(available);
 
+  console.log("Cantidad de códigos disponibles:", codeDocs.size);
+
   if (codeDocs.empty) {
     return { error: "No hay más códigos disponibles." };
   }
@@ -28,17 +32,17 @@ export const claimDiscount = async () => {
   const codeDoc = codeDocs.docs[0];
   const codeData = codeDoc.data();
 
-  // Marcar código como usado
   await updateDoc(doc(db, "discountCodes", codeDoc.id), {
     claimed: true,
   });
 
-  // Guardar reclamo
   await addDoc(claimsRef, {
     fingerprint,
     code: codeData.code,
     claimedAt: new Date(),
   });
+
+  console.log("Código asignado:", codeData.code);
 
   return { code: codeData.code, alreadyClaimed: false };
 };
