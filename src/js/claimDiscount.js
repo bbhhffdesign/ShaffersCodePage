@@ -1,58 +1,19 @@
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  addDoc,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, getDocs, query, where, addDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { getFingerprint } from "./fingerprintjs";
 
-// Función para obtener la IP pública
+// Función para obtener IP pública
 const getPublicIP = async () => {
   const res = await fetch("https://api.ipify.org?format=json");
   const data = await res.json();
   return data.ip;
 };
 
-const isAllowedLocation = async (ip) => {
-  try {
-    const res = await fetch(`https://ipapi.co/${ip}/json/`);
-    const data = await res.json();
-
-    const country = data.country || "unknown";
-    const region = data.region || "unknown";
-    const city = data.city || "unknown";
-
-    console.log("Ubicación detectada:", { country, region, city });
-
-    // Solo permitimos Argentina, y opcionalmente Buenos Aires
-    const allowedCountry = country === "AR";
-    const allowedRegion =
-      region.toLowerCase().includes("buenos aires") ||
-      city.toLowerCase().includes("buenos aires");
-
-    return allowedCountry && allowedRegion;
-  } catch (error) {
-    console.warn("Error obteniendo ubicación:", error);
-    return false; // si falla, no permitimos por precaución
-  }
-};
-
-const isMobileDevice = () => {
-  const ua = navigator.userAgent.toLowerCase();
-  return /mobile|android|iphone|ipad|ipod|opera mini|iemobile/i.test(ua);
-};
-
 // Función para obtener información del dispositivo
 const getDeviceInfo = () => {
   try {
     if (navigator.userAgentData) {
-      const brands = navigator.userAgentData.brands
-        ?.map((b) => `${b.brand}/${b.version}`)
-        .join(", ");
+      const brands = navigator.userAgentData.brands?.map(b => `${b.brand}/${b.version}`).join(", ");
       const platform = navigator.userAgentData.platform || "Unknown Platform";
       if (brands) return `${brands} - ${platform}`;
     }
@@ -68,34 +29,74 @@ const generateHash = async (input) => {
   const encoder = new TextEncoder();
   const data = encoder.encode(input);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 };
 
-export const claimDiscount = async () => {
+// ✅ Detecta si es un dispositivo móvil
+const isMobile = () => {
+  return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
 
-  
+// ✅ Detecta si DevTools están abiertos (técnica combinada)
+const isDevToolsOpen = () => {
+  const threshold = 160;
+  const widthCheck = window.outerWidth - window.innerWidth > threshold;
+  const heightCheck = window.outerHeight - window.innerHeight > threshold;
+  return widthCheck || heightCheck;
+};
+
+const detectDevToolsViaConsole = () => {
+  let devtoolsOpen = false;
+  const element = new Image();
+  Object.defineProperty(element, 'id', {
+    get: function () {
+      devtoolsOpen = true;
+    }
+  });
+  console.log('%c', element);
+  return devtoolsOpen;
+};
+
+// ✅ Verifica si la IP es de Buenos Aires, Argentina
+const isIPFromBuenosAires = async (ip) => {
+  try {
+    const res = await fetch(`https://ipapi.co/${ip}/json/`);
+    const data = await res.json();
+    return data.country === "AR" && data.region === "Buenos Aires";
+  } catch (error) {
+    console.warn("Error verificando ubicación por IP:", error);
+    return false;
+  }
+};
+
+// Función principal
+export const claimDiscount = async () => {
+  // ✅ Bloqueo por DevTools
+  if (isDevToolsOpen() || detectDevToolsViaConsole()) {
+    console.log("DevTools detectado. Acceso denegado.");
+    return { error: "Acceso denegado por herramientas de desarrollo." };
+  }
+
+  // ✅ Solo desde dispositivos móviles
+  if (!isMobile()) {
+    console.log("Dispositivo no móvil. Acceso denegado.");
+    return { error: "Solo se permite el acceso desde dispositivos móviles." };
+  }
+
   const fingerprint = await getFingerprint();
   const ip = await getPublicIP();
   const deviceInfo = getDeviceInfo();
   const userAgent = navigator.userAgent;
   const language = navigator.language || "unknown";
-  const timezone =
-  Intl.DateTimeFormat().resolvedOptions().timeZone || "unknown";
-  
-  const isFromAllowedLocation = await isAllowedLocation(ip);
-  if (!isFromAllowedLocation) {
-    console.log("Ubicación no permitida. Código no otorgado.");
-    return {
-      error: "Esta promoción solo está disponible en Buenos Aires, Argentina.",
-    };
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "unknown";
+
+  // ✅ Bloqueo si no es de Buenos Aires
+  const isFromBA = await isIPFromBuenosAires(ip);
+  if (!isFromBA) {
+    console.log("IP fuera de Buenos Aires. Acceso denegado.");
+    return { error: "Acceso restringido solo a Buenos Aires, Argentina." };
   }
-  if (!isMobileDevice()) {
-    console.log("Dispositivo no móvil. Acceso denegado.");
-    return { error: "Esta promoción solo está disponible desde dispositivos móviles." };
-  }
-  
+
   // Generamos el hash compuesto
   const combinedInfo = `${fingerprint}|${ip}|${deviceInfo}|${userAgent}|${language}|${timezone}`;
   const deviceHash = await generateHash(combinedInfo);
@@ -116,14 +117,14 @@ export const claimDiscount = async () => {
     query(claimsRef, where("ip", "==", ip)),
     query(claimsRef, where("userAgent", "==", userAgent)),
     query(claimsRef, where("language", "==", language)),
-    query(claimsRef, where("deviceHash", "==", deviceHash)),
+    query(claimsRef, where("deviceHash", "==", deviceHash))
   ];
 
   const results = await Promise.all(queries.map(getDocs));
-  const existing = results.some((result) => !result.empty);
+  const existing = results.some(result => !result.empty);
 
   if (existing) {
-    const foundDoc = results.find((result) => !result.empty)?.docs[0];
+    const foundDoc = results.find(result => !result.empty)?.docs[0];
     console.log("Usuario ya tiene código:", foundDoc.data().code);
     return { code: foundDoc.data().code, alreadyClaimed: true };
   }
