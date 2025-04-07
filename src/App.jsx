@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { claimDiscount } from './js/claimDiscount';
 
 
+
 function App() {
   const [code, setCode] = useState(null);
   const [message, setMessage] = useState("Cargando...");
