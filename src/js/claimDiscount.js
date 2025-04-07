@@ -60,11 +60,18 @@ const detectDevToolsViaConsole = () => {
 // ✅ Verifica si la IP es de Buenos Aires, Argentina
 const isIPFromBuenosAires = async (ip) => {
   try {
-    const res = await fetch(`https://ipapi.co/${ip}/json/`);
+    const res = await fetch(`https://ipwho.is/${ip}`);
     const data = await res.json();
-    return data.country === "AR" && data.region === "Buenos Aires";
+
+    if (!data.success) {
+      console.warn("Fallo al obtener ubicación:", data.message);
+      return false;
+    }
+
+    console.log(`Ubicación detectada: ${data.city}, ${data.region}, ${data.country}`);
+    return data.country_code === "AR";
   } catch (error) {
-    console.warn("Error verificando ubicación por IP:", error);
+    console.warn("Error al verificar IP con ipwho.is:", error);
     return false;
   }
 };
