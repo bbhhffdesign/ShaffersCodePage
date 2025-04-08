@@ -1,10 +1,83 @@
-import { useEffect, useState } from 'react';
-import { claimDiscount } from './js/claimDiscount';
+import { useEffect, useState, useRef } from "react";
+import { claimDiscount } from "./js/claimDiscount";
+import LoadingPage from "./components/LoadingPage";
+import MainPage from "./components/MainPage";
+import TermsPage from "./components/TermsPage";
 
 function App() {
   const [code, setCode] = useState(null);
   const [message, setMessage] = useState("Cargando...");
   const [isLoading, setIsLoading] = useState(true); // Añadir un estado de carga para evitar múltiples llamadas
+  ///
+  const [translateY, setTranslateY] = useState(100);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showMain, setShowMain] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
+  const [goToLoading, setGoToLoading] = useState(false);
+  const [isClicked, setIsClicked] = useState(true);
+  const sectionsRef = useRef(null);
+
+  const scrollToY = (vh) => setTranslateY(vh);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      scrollToY(0);
+      setInitialLoad(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      if (translateY === 220 && goToLoading) {
+        setShowMain(false);
+        setShowTerms(false);
+        setTranslateY(200);
+        setGoToLoading(false);
+      }
+
+      if (translateY === 0 && !initialLoad) {
+        setShowTerms(true);
+      }
+    };
+
+    const node = sectionsRef.current;
+    node?.addEventListener("transitionend", handleTransitionEnd);
+    return () => node?.removeEventListener("transitionend", handleTransitionEnd);
+  }, [translateY, initialLoad, goToLoading]);
+
+  // const handleMainClick = () => {
+  //   if (translateY === 70) {
+  //     setTimeout(() => {
+  //       scrollToY(0);
+  //     }, 2000);
+  //     // setIsClicked((prev) => !prev); // si querés usarlo más tarde
+  //   }
+  // };
+  const handleMainClick = () => {
+    if (translateY === 70) {
+      setTimeout(() => {
+        scrollToY(0);
+      }, 500);
+    }
+  };
+
+  const handleTransitionToLoading = () => {
+    setShowLoading(true);
+    setGoToLoading(true);
+  
+    setTimeout(() => {
+      scrollToY(200);
+    }, 400);
+  
+    setTimeout(() => {
+      window.open('https://www.instagram.com/shaffers.co?igsh=NWRmYWV5YXVmNDAz', '_blank');
+      location.reload(); 
+    }, 1500);
+  };
+
+///
 
   useEffect(() => {
     const fetchCode = async () => {
@@ -16,7 +89,11 @@ function App() {
         setMessage(res.error);
       } else {
         setCode(res.code);
-        setMessage(res.alreadyClaimed ? "Ya reclamaste tu código:" : "¡Aquí está tu código de descuento!");
+        setMessage(
+          res.alreadyClaimed
+            ? "Ya reclamaste tu código:"
+            : "¡Aquí está tu código de descuento!"
+        );
       }
 
       setIsLoading(false); // Detener la carga una vez que el proceso haya terminado
@@ -29,10 +106,29 @@ function App() {
   }, [isLoading, code]); // Agregar `isLoading` para asegurarse de que solo se ejecute una vez
 
   return (
-    <div style={{ padding: 40, textAlign: 'center', fontFamily: 'sans-serif' }}>
+    <>
+    {/* <div className="nav-bar-device"></div> */}
+     <div className="app">
+      <div
+        className="sections"
+        ref={sectionsRef}
+        style={{ transform: `translateY(-${translateY}svh)` }}
+      >
+        {showMain && (
+          <MainPage onClick={handleMainClick} onScroll={() => setTimeout(() => scrollToY(70), 400)}/>
+        )}
+        {showTerms && (
+          <TermsPage onGoToLoading={handleTransitionToLoading} isClicked={isClicked} />
+        )}
+        {showLoading && <LoadingPage />}
+      </div>
+    </div>
+
+      {/* <div className='discount-code-container' style={{ padding: 40, textAlign: 'center', fontFamily: 'sans-serif' }}>
       <h1>{message}</h1>
       {code && <h2 style={{ color: 'green', fontSize: '2rem' }}>{code}</h2>}
-    </div>
+    </div> */}
+    </>
   );
 }
 

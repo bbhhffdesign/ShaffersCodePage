@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="500"
+   height="290.53589"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="wave2.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   inkscape:export-filename="wave-2-2.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="2"
+     inkscape:cx="109"
+     inkscape:cy="154.25"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2"
+     showguides="true" />
+  <defs
+     id="defs2" />
+  <path
+     fill="url(#a)"
+     fill-rule="evenodd"
+     d="M 499.99844,41.473392 C 463.52874,53.73416 388.63674,109.2644 266.01451,63.594105 215.44109,44.75818 174.87378,1.1266747 128.20271,0.02779575 81.531642,-1.0710833 31.788521,30.717575 0.02209709,41.252421 L 0,290.53589 h 500 c 0,0 -0.003,-239.999998 -0.003,-249.062498 z"
+     id="path2-7"
+     style="display:inline;fill:#efa52e;fill-opacity:1;stroke-width:0.3125"
+     sodipodi:nodetypes="cszccccc"
+     inkscape:export-filename="wave-3-2.svg"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96" />
+  <path
+     fill="url(#a)"
+     fill-rule="evenodd"
+     d="M 499.99844,43.267552 C 468.52874,69.02832 388.63674,111.05856 266.01451,65.388265 215.44109,46.55234 137.51763,3.9116673 76.219961,2.4684023 44.175499,1.7139095 28.766427,22.732706 2.4000001e-6,43.267552 V 292.33005 H 500 c 0,0 -0.003,-239.999998 -0.003,-249.062498 z"
+     id="path2"
+     style="display:none;fill:#f68b00;fill-opacity:1;stroke-width:0.3125"
+     sodipodi:nodetypes="cssccccc" />
+</svg>

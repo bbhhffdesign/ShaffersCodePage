@@ -1,0 +1,35 @@
+$color-principal: #EFA52E;
+$sombra-marron: #87602B;
+
+// Breakpoints para móviles
+$breakpoint-xs: 360px;   // Teléfonos pequeños
+$breakpoint-sm: 390px;   // Teléfonos pequeños
+$breakpoint-md: 412px;   // Teléfonos estándar
+$breakpoint-lg: 480px;   // Tablets pequeñas
+
+// Teléfonos muypequeños
+@mixin dev-xs {
+  @media (min-width: #{$breakpoint-xs}) {
+    @content;
+  }
+}
+// Teléfonos pequeños
+@mixin dev-sm {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+// Teléfonos estándar
+@mixin dev-md {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+// Tablets y móviles grandes
+@mixin dev-lg {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}

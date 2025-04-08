@@ -1,0 +1,62 @@
+@use "../abstractas/variables" as *;
+
+
+button {
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: .6rem;
+    border: solid 2px black;
+    --shadow-color: black;
+    box-shadow: -4px 4px var(--shadow-color);
+
+    &:active,
+    &:hover{
+      animation: taparSombra 0.4s ease-out forwards;
+    }
+    
+  }
+  .discount-code{
+    // margin: 2rem;
+    padding: .5rem 1rem;
+    background-color: $color-principal;
+    color: white;
+    border: solid 2px $sombra-marron;
+    --shadow-color: #87602B;
+    box-shadow: -4px 4px var(--shadow-color);
+    
+    &:active{
+      animation: taparSombra 0.4s ease-out forwards;
+    }
+    h1{
+        // font-size: 2rem;
+        font-weight: 900;
+    }
+  }
+
+  .btn-main-page{
+    // background-color: red;
+    padding: .5rem;
+    @include dev-sm{
+      padding: .7rem;
+    }
+    @include dev-md{
+      padding: .9rem;
+    }
+    @include dev-lg{
+      padding: .9rem;
+    }
+  }
+
+  @keyframes taparSombra {
+    0% {
+      transform: translate(0, 0);
+      box-shadow: -4px 4px var(--shadow-color);
+    }
+    100% {
+      transform: translate(-4px, 4px);
+      box-shadow: 0 0 var(--shadow-color);
+    }
+  }
