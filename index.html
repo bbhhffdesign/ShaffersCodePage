@@ -20,12 +20,30 @@
   <body>
     <div id="root"></div>
 
+    <script nomodule>
+      // (esto puede quedarse, es el fix de Safari antiguo)
+      var e=document,t=e.createElement("script");
+      if(!("noModule" in t)&&"onbeforeload" in t){
+        var n=!1;
+        e.addEventListener("beforeload", function(e){
+          if(e.target===t) n=!0;
+          else if(!e.target.hasAttribute("nomodule") || !n) return;
+          e.preventDefault();
+        }, !0);
+        t.type="module"; t.src="."; e.head.appendChild(t); t.remove();
+      }
+    </script>
 
-    
-    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <!-- ✅ ESTE es el nuevo script que debes agregar -->
+    <script nomodule src="https://cdn.jsdelivr.net/npm/systemjs@6.12.1/dist/system.min.js"></script>
+
+    <!-- Scripts que ya tenías -->
     <script nomodule crossorigin id="vite-legacy-polyfill" src="/ShaffersCodePage/assets/polyfills-legacy-BYWW1cJd.js"></script>
-    <script nomodule crossorigin id="vite-legacy-entry" data-src="/ShaffersCodePage/assets/index-legacy-EBNbOTEP.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
-  
+    <script nomodule crossorigin id="vite-legacy-entry" data-src="/ShaffersCodePage/assets/index-legacy-EBNbOTEP.js">
+      System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))
+    </script>
+
+    <!-- Mensaje para confirmar visualmente -->
     <script nomodule>
       document.body.innerHTML += '<div style="color:red; padding:1em;">✅ NOMODULE activo</div>';
     </script>
