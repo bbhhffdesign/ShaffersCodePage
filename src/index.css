@@ -518,7 +518,7 @@ button:active {
   content: "";
   position: absolute;
   background-color: #EFA52E;
-  height: 100px;
+  height: 5rem;
   width: 100%;
   bottom: 0px;
 }
@@ -528,24 +528,8 @@ button:active {
   bottom: 0;
   width: 200vw;
   bottom: 0;
-  height: 9rem;
+  height: 10rem;
 }
-@media (min-width: 390px) {
-  .wave {
-    height: 12rem;
-  }
-}
-@media (min-width: 412px) {
-  .wave {
-    height: 15rem;
-  }
-}
-@media (min-width: 480px) {
-  .wave {
-    height: 18rem;
-  }
-}
-
 .wave-1 {
   background: url(./assets/svg/wave-1-1.svg) repeat-x;
   background-size: 100vw 100%;

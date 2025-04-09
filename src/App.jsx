@@ -65,43 +65,18 @@ function App() {
     }
   };
 
-  // const handleTransitionToLoading = () => {
-  //   setShowLoading(true);
-  //   setGoToLoading(true);
-  
-  //   setTimeout(() => {
-  //     scrollToY(200);
-  //   }, 400);
-  
-  //   setTimeout(() => {
-  //     window.open('https://www.instagram.com/shaffers.co/','_blank');
-  //     location.href = 'https://www.instagram.com/shaffers.co/';
-  //     location.reload(); 
-  //   }, 1500);
-  // };
   const handleTransitionToLoading = () => {
-    // Creamos un link invisible pero válido
-    const link = document.createElement('a');
-    link.href = 'https://www.instagram.com/shaffers.co/';
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-  
-    // Ejecutás la animación
     setShowLoading(true);
     setGoToLoading(true);
   
     setTimeout(() => {
-      scrollToY(200); // animación visual
+      scrollToY(200);
     }, 400);
   
     setTimeout(() => {
-      // Al terminar la animación, activás el link como si el usuario lo hubiera hecho
-      link.click();
-      document.body.removeChild(link);
-      location.reload();
-    }, 1500); // o cuando termine la animación
+      window.open('https://www.instagram.com/shaffers.co/','_blank');
+      location.reload(); 
+    }, 1500);
   };
 
 ///

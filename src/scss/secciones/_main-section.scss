@@ -109,7 +109,7 @@
       content: '';
       position: absolute;
       background-color: $color-principal;
-      height: 100px;
+      height: 5rem;
       width: 100%;
       bottom: 0px;
       // border: solid 1px black;
@@ -123,17 +123,18 @@
     bottom: 0;
     width: 200vw;
     bottom: 0;
-    height: 9rem;
-    // @include dev-xs{
-    // }
+    height: 10rem;
+    @include dev-xs{
+    }
     @include dev-sm{
-      height: 12rem;
+      // height: 12rem;
     }
     @include dev-md{
-      height: 15rem;
+      // height: 15rem;
     }
     @include dev-lg{
-      height: 18rem;
+      // height: 20rem;
+      // height: 18rem;
     }
 
   }
