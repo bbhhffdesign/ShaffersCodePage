@@ -7,24 +7,9 @@
     
 //   }
 
-small{
-  font-size: clamp(0.8rem, 0.2rem + 2.667vw, 1rem);
-}
+
 .main-page {
     background: none;
-    // height: 100svh;
-    
-    // &::before{
-    //   content: "";
-    //   position: absolute;
-    //   // inset: 0;
-    //   height: 100px;
-    //   width: 100%;
-    //   background-color: $color-principal;
-    //   border: solid 1px red;
-    //   top: 100svh;
-    //   z-index: 1;
-    // }
 
   }
   .main-page-content{
@@ -76,6 +61,12 @@ small{
       background-repeat: no-repeat;
       z-index: 1;
       flex: 1;
+      // transition: transform 0.5s ease-in-out;
+      // // transform: translateX(0); // posición original
+
+      // &.animate-dani {
+      //   transform: translateY(-50%); // o lo que quieras mover
+      // }
       
     }
     .button-container{
@@ -150,14 +141,14 @@ small{
   .wave-1{
     background: url(./assets/svg/wave-1-1.svg) repeat-x;
     background-size: 100vw 100%;
-    animation: wave-1 5s infinite linear;
-    
+    animation: wave-1 10s infinite linear;    
   }
   .wave-2{
     background: url(./assets/svg/wave-1-2.svg) repeat-x;
-    // bottom: 1%;
+    bottom: -1%;
     background-size: 100vw 100%;
-    animation: wave-1 10s infinite linear reverse;
+    animation: wave-1 20s infinite linear;
+    // transform: translateY(5rem);
 
   }
 
@@ -180,3 +171,6 @@ small{
     }
   }
   
+  .slide-left {
+    transform: translateY(-50%);
+  }

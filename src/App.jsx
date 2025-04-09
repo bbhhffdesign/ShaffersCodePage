@@ -21,11 +21,20 @@ function App() {
   const scrollToY = (vh) => setTranslateY(vh);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      scrollToY(0);
-      setInitialLoad(false);
-    }, 1000);
-    return () => clearTimeout(timeout);
+    const handlePageLoad = () => {
+      console.log("✅ Toda la página ha cargado. Comenzamos animación.");
+      setTimeout(() => {
+        scrollToY(0);
+        setInitialLoad(false);
+      }, 400);
+    };
+  
+    if (document.readyState === "complete") {
+      handlePageLoad();
+    } else {
+      window.addEventListener("load", handlePageLoad);
+      return () => window.removeEventListener("load", handlePageLoad);
+    }
   }, []);
 
   useEffect(() => {
@@ -47,34 +56,52 @@ function App() {
     return () => node?.removeEventListener("transitionend", handleTransitionEnd);
   }, [translateY, initialLoad, goToLoading]);
 
-  // const handleMainClick = () => {
-  //   if (translateY === 70) {
-  //     setTimeout(() => {
-  //       scrollToY(0);
-  //     }, 2000);
-  //     // setIsClicked((prev) => !prev); // si querés usarlo más tarde
-  //   }
-  // };
+
   const handleMainClick = () => {
     if (translateY === 70) {
-      setTimeout(() => {
+      setIsClicked(false); // volver a posición original
         scrollToY(0);
-      }, 500);
+  
     }
   };
 
+  // const handleTransitionToLoading = () => {
+  //   setShowLoading(true);
+  //   setGoToLoading(true);
+  
+  //   setTimeout(() => {
+  //     scrollToY(200);
+  //   }, 400);
+  
+  //   setTimeout(() => {
+  //     window.open('https://www.instagram.com/shaffers.co/','_blank');
+  //     location.href = 'https://www.instagram.com/shaffers.co/';
+  //     location.reload(); 
+  //   }, 1500);
+  // };
   const handleTransitionToLoading = () => {
+    // Creamos un link invisible pero válido
+    const link = document.createElement('a');
+    link.href = 'https://www.instagram.com/shaffers.co/';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+  
+    // Ejecutás la animación
     setShowLoading(true);
     setGoToLoading(true);
   
     setTimeout(() => {
-      scrollToY(200);
+      scrollToY(200); // animación visual
     }, 400);
   
     setTimeout(() => {
-      window.open('https://www.instagram.com/shaffers.co?igsh=NWRmYWV5YXVmNDAz', '_blank');
-      location.reload(); 
-    }, 1500);
+      // Al terminar la animación, activás el link como si el usuario lo hubiera hecho
+      link.click();
+      document.body.removeChild(link);
+      location.reload();
+    }, 1500); // o cuando termine la animación
   };
 
 ///
@@ -115,7 +142,14 @@ function App() {
         style={{ transform: `translateY(-${translateY}svh)` }}
       >
         {showMain && (
-          <MainPage onClick={handleMainClick} onScroll={() => setTimeout(() => scrollToY(70), 400)}/>
+          <MainPage
+          onClick={handleMainClick}
+          onScroll={() => {
+            setIsClicked(true);
+            scrollToY(70);
+          }}
+          isClicked={isClicked}
+        />
         )}
         {showTerms && (
           <TermsPage onGoToLoading={handleTransitionToLoading} isClicked={isClicked} />

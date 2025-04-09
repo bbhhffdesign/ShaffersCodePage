@@ -1,62 +1,109 @@
 @use "../abstractas/variables" as *;
+:root {
+  --red: red;
+  --color-principal: #efa52e;
+  --color-principal-sombra: #87602b;
+  --verde: #45b052;
+}
 
-
+button,
+button *{
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
 button {
-    margin-bottom: 2rem;
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    z-index: 2;
-    border-radius: .6rem;
-    border: solid 2px black;
-    --shadow-color: black;
+  --shadow-color: black;
+  
+  
+  font-weight: 800;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  z-index: 2;
+  border-radius: 0.6rem;
+  border: solid 2px var(--shadow-color);
+  color: var(--shadow-color) !important;
+  box-shadow: -4px 4px var(--shadow-color);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+
+  p,
+  h1 {
+    color: var(--shadow-color) !important;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  &:active {
+    animation: taparSombra .1s ease-out forwards;
+  }
+
+  // &.pressed {
+  //   transform: translate(-4px, 4px);
+  //   box-shadow: 0 0 var(--shadow-color);
+  // }
+}
+
+// button.pressed {
+//   animation: taparSombra 0.2s ease-out forwards;
+// }
+
+// .btn-main-page {
+//   transition: transform 0.4s ease, box-shadow 0.4s ease;
+//   --shadow-color: black;
+//   box-shadow: -4px 4px var(--shadow-color);
+
+//   &.pressed {
+//     transform: translate(-4px, 4px);
+//     box-shadow: 0 0 var(--shadow-color);
+//   }
+// }
+// .btn-terms-page{
+//   @extend .btn-main-page;
+// }
+
+.discount-code {
+  --shadow-color: #87602b;
+  background-color: $color-principal;
+  color: white !important;
+  // border: solid 2px var(--shadow-color);
+  // box-shadow: -4px 4px var(--shadow-color);
+  
+  h1 {
+    color: white !important;
+    font-weight: 900;
+  }
+}
+
+.btn-main-page {
+  padding: 0.5rem;
+  @include dev-sm {
+    padding: 0.7rem;
+  }
+  @include dev-md {
+    padding: 0.9rem;
+  }
+  @include dev-lg {
+    padding: 0.9rem;
+  }
+}
+
+@keyframes taparSombra {
+  0% {
+    transform: translate(0, 0);
     box-shadow: -4px 4px var(--shadow-color);
-
-    &:active,
-    &:hover{
-      animation: taparSombra 0.4s ease-out forwards;
-    }
-    
   }
-  .discount-code{
-    // margin: 2rem;
-    padding: .5rem 1rem;
-    background-color: $color-principal;
-    color: white;
-    border: solid 2px $sombra-marron;
-    --shadow-color: #87602B;
-    box-shadow: -4px 4px var(--shadow-color);
-    
-    &:active{
-      animation: taparSombra 0.4s ease-out forwards;
-    }
-    h1{
-        // font-size: 2rem;
-        font-weight: 900;
-    }
+  100% {
+    transform: translate(-4px, 4px);
+    box-shadow: 0 0 var(--shadow-color);
   }
-
-  .btn-main-page{
-    // background-color: red;
-    padding: .5rem;
-    @include dev-sm{
-      padding: .7rem;
-    }
-    @include dev-md{
-      padding: .9rem;
-    }
-    @include dev-lg{
-      padding: .9rem;
-    }
-  }
-
-  @keyframes taparSombra {
-    0% {
-      transform: translate(0, 0);
-      box-shadow: -4px 4px var(--shadow-color);
-    }
-    100% {
-      transform: translate(-4px, 4px);
-      box-shadow: 0 0 var(--shadow-color);
-    }
-  }
+}

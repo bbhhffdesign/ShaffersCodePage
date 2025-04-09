@@ -1,8 +1,12 @@
 @use "./abstractas/variables" as *;
+@use "./abstractas/normalize";
 @use  "./componentes/buttons";
 @use  "./secciones/main-section";
 @use  "./secciones/terms-page";
-
+html {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
 body{
     margin: 0;
     // font-family: "M PLUS Rounded 1c", sans-serif;
@@ -25,7 +29,9 @@ p{
   margin-bottom: 1rem;
   
 }
-
+small{
+  font-size: clamp(0.8rem, 0.2rem + 2.667vw, 1rem);
+}
 
 .app {
     overflow: hidden;
@@ -52,12 +58,6 @@ p{
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-  }
-.loading-page{
-  // height: 100vh;
-}
-  .main-page-toggle{
-    // height: 100svh;
   }
 
   .hidden-button {
