@@ -83,6 +83,8 @@ button {
   color: white !important;
   // border: solid 2px var(--shadow-color);
   // box-shadow: -4px 4px var(--shadow-color);
+
+
   
   h1 {
     color: white !important;
@@ -91,6 +93,8 @@ button {
 }
 
 .btn-main-page {
+  min-width: 250px;
+
   // padding: 0.5rem;
   @include dev-sm {
     // padding: 0.7rem;

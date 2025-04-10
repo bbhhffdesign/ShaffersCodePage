@@ -13,6 +13,7 @@ function MainPage({ onClick, onScroll, isClicked }) {
   });
   const [colorIndex, setColorIndex] = useState(0);
   const [isPressed, setIsPressed] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   // Función para cambiar el color
   const incrementColor = () => {
@@ -21,15 +22,25 @@ function MainPage({ onClick, onScroll, isClicked }) {
 
   const handleScrollClick = (e) => {
     e.stopPropagation();
-    onScroll();
+
+    if (!hasScrolled) {
+      // Primera vez: hacé scroll hacia la sección
+      onScroll();
+      setHasScrolled(true);
+    } else {
+      // Segunda vez: volvemos al código y disparamos el onClick
+      if (onClick) onClick();
+      setHasScrolled(false);
+    }
   };
 
+
   return (
-    <section className="section main-page" onClick={onClick}>
+    <section className="section main-page">
       <div className="main-page-content">
         <div className="discount-code-container">
           <div className="discount-text-container">
-            <p>Te ganaste </p>
+            <h5>Te ganaste </h5>
             <h3 style={{ color: patternColors[colorIndex] }}>20% OFF</h3>
           </div>
           <Button
@@ -51,7 +62,7 @@ function MainPage({ onClick, onScroll, isClicked }) {
 
         <div className="button-container">
           <Button className="btn btn-main-page" onClick={handleScrollClick}>
-            ¿Cómo aplicar el descuento?
+          {hasScrolled ? "VOLVER AL CÓDIGO  " : "¿Cómo aplicar el descuento?"}
           </Button>
         </div>
       </div>

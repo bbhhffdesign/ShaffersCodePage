@@ -74,8 +74,8 @@ function App() {
     }, 400);
   
     setTimeout(() => {
-      window.open('https://www.instagram.com/shaffers.co/','_blank');
-      location.reload(); 
+      window.location.href = 'https://www.instagram.com/shaffers.co/';
+      // location.reload(); 
     }, 1500);
   };
 

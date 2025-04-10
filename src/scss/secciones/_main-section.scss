@@ -23,7 +23,8 @@
     .discount-text-container{
         // transition: color .2s linear;
       h3,
-      p{
+      h5{
+        text-align: center;
         margin: 0;
     }
     }
@@ -141,16 +142,16 @@
 }
 
 .wave-1 {
-  background: url(./assets/svg/wave-1-1.svg) repeat-x;
+  background: url(./assets/svg/wave-front1.png) repeat-x;
   background-size: 100lvw 100%;
-  animation: wave-1 1s infinite linear;
+  animation: wave-1 12s infinite linear;
   z-index: 1;
 }
 .wave-2 {
   background: url(./assets/svg/wave-back1.png) repeat-x;
   bottom: 10%;
   background-size: 100lvw 100%;
-  animation: wave-1 3s infinite linear backwards;
+  animation: wave-1 30s infinite linear backwards;
   // transform: translateY(5rem);
   // z-index: 2;
 }
