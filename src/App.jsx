@@ -66,7 +66,7 @@ function App() {
   };
 
   const handleTransitionToLoading = () => {
-    setShowLoading(true);
+    setShowLoading(true); 
     setGoToLoading(true);
   
     setTimeout(() => {

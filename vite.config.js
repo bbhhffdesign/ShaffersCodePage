@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import react from '@vitejs/plugin-react'
+import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
-  plugins: [react()],
-  base: "/ShaffersCodePage"
+  plugins: [
+    react(),
+    legacy({
+      targets: ['defaults', 'not IE 11', 'Safari >= 10'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'], // importante si usás async/await
+    }),
+  ],
 })

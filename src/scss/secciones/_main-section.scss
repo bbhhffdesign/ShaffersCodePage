@@ -1,177 +1,166 @@
 @use "../abstractas/variables" as *;
-// #root{
-//     height: 100vh;
-//     width: 100vw;
-//     overflow: hidden;
-//     position: relative;
-    
-//   }
-
 
 .main-page {
-    background: none;
+  background: none;
+}
+.main-page-content {
+  height: inherit;
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
-  }
-  .main-page-content{
-    height: inherit;
-    width: inherit;
+  .discount-code-container {
+    padding: 0 1rem;
+    // padding-top: 0rem;
+    height: 30svh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     
-    
-    
-    .discount-code-container{
-      padding: 0 1rem;
-      // padding-top: 0rem;
-      height: 30svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-   
-  
-      .discount-code{
+    .discount-text-container{
+        // transition: color .2s linear;
+      h3,
+      p{
         margin: 0;
-        padding: clamp(0.5rem, -0.4rem + 4vw, 0.8rem);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: .2rem;
-        h1{
-          line-height: 100%;
-          margin: 0;
-          font-size: clamp(2rem, -4.923rem + 30.769vw, 3rem);
-        }
-        small{
-          font-size: .8rem;
-          line-height: 90%;
-        }
-      }
     }
-
-    .dani-container{
-      // height: 45vh;
-      height: 55svh;
-      width: 100vw;
-      background-image: url(./assets/Dani.png);
-      background-size: contain;
-      background-position:  center center;
-      background-repeat: no-repeat;
-      z-index: 1;
-      flex: 1;
-      // transition: transform 0.5s ease-in-out;
-      // // transform: translateX(0); // posición original
-
-      // &.animate-dani {
-      //   transform: translateY(-50%); // o lo que quieras mover
-      // }
-      
     }
-    .button-container{
-      // height: 25vh;
-      height: 15svh;
-      width: 100%;
+  
+
+    .discount-code {
+      margin: 0;
+      margin-bottom: .5rem;
+      padding: clamp(0.5rem, -0.4rem + 4vw, 0.8rem);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background-color: $color-principal;
-      
-    }
-  }
-  
-  .loading-page {
-      background: $color-principal;
-      display: flex;
-      align-items: center;    
-      justify-content: center;
-
-      .loading-page-logo{
-          height: 20vh;
-          width: 20vh;
-          background-image: url(./assets/shaffers-logo.png);
-          background-size: contain;
-          background-position: center;
-          background-repeat: no-repeat;
+      gap: 0.2rem;
+      h1 {
+        line-height: 100%;
+        margin: 0;
+        font-size: clamp(2rem, -4.923rem + 30.769vw, 3rem);
       }
-}
-  
-  .background{
-    position: absolute;
-    top: 0;
-    height: 100dvh;
+      small {
+        font-size: 0.8rem;
+        line-height: 90%;
+      }
+    }
+  }
+
+  .dani-container {
+    // height: 45vh;
+    height: 55svh;
     width: 100vw;
-    // overflow: visible;
+    background-image: url(./assets/Dani-Habla.png);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    flex: 1;
+    // transition: transform 0.5s ease-in-out;
+    // // transform: translateX(0); // posición original
 
-    &::after{
-      content: '';
-      position: absolute;
-      background-color: $color-principal;
-      height: 5rem;
-      width: 100%;
-      bottom: 0px;
-      // border: solid 1px black;
-    }
-
+    // &.animate-dani {
+    //   transform: translateY(-50%); // o lo que quieras mover
+    // }
   }
+  .button-container {
+    // height: 25vh;
+    height: 15svh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-principal;
+  }
+}
 
-  
-  .wave {
+.loading-page {
+  background: $color-principal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loading-page-logo {
+    height: 20vh;
+    width: 20vh;
+    background-image: url(./assets/shaffers-logo.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  height: 100dvh;
+  width: 100vw;
+  // overflow: visible;
+
+  &::after {
+    content: "";
     position: absolute;
-    bottom: 0;
-    width: 200vw;
-    bottom: 0;
-    height: 10rem;
-    @include dev-xs{
-    }
-    @include dev-sm{
-      // height: 12rem;
-    }
-    @include dev-md{
-      // height: 15rem;
-    }
-    @include dev-lg{
-      // height: 20rem;
-      // height: 18rem;
-    }
+    background-color: $color-principal;
+    height: 5rem;
+    width: 100%;
+    bottom: 0px;
+    // border: solid 1px black;
+  }
+}
 
+.wave {
+  position: absolute;
+  bottom: 0;
+  width: 200vw;
+  bottom: 0;
+  height: 11rem;
+  @include dev-xs {
   }
-  
-  .wave-1{
-    background: url(./assets/svg/wave-1-1.svg) repeat-x;
-    background-size: 100vw 100%;
-    animation: wave-1 10s infinite linear;    
+  @include dev-sm {
+    // height: 12rem;
   }
-  .wave-2{
-    background: url(./assets/svg/wave-1-2.svg) repeat-x;
-    bottom: -1%;
-    background-size: 100vw 100%;
-    animation: wave-1 20s infinite linear;
-    // transform: translateY(5rem);
+  @include dev-md {
+    // height: 15rem;
+  }
+  @include dev-lg {
+    // height: 20rem;
+    height: 18rem;
+  }
+}
 
-  }
+.wave-1 {
+  background: url(./assets/svg/wave-1-1.svg) repeat-x;
+  background-size: 100vw 100%;
+  animation: wave-1 10s infinite linear;
+  z-index: 1;
+}
+.wave-2 {
+  background: url(./assets/svg/wave-back1.png) repeat-x;
+  bottom: 10%;
+  background-size: 100vw 100%;
+  animation: wave-1 30s infinite linear backwards;
+  // transform: translateY(5rem);
+  // z-index: 2;
+}
 
-  
-  @keyframes wave-1 {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100vw);
-    }
+@keyframes wave-1 {
+  0% {
+    transform: translateX(0);
   }
-  
-  @keyframes wave-2 {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(100vw);
-    }
+  100% {
+    transform: translateX(-100vw);
   }
-  
-  .slide-left {
-    transform: translateY(-50%);
+}
+
+@keyframes wave-2 {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(100vw);
+  }
+}

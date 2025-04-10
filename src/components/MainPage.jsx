@@ -1,40 +1,61 @@
-// import { Background } from "./Background"
 import { useState } from "react";
 import { Background } from "./Background";
 import Button from "./Button";
 
 function MainPage({ onClick, onScroll, isClicked }) {
   const [animateDani, setAnimateDani] = useState(false);
+  const [colorClass, setColorClass] = useState("");
+  const [withTransition, setWithTransition] = useState(false);
+  const [touchCycle, setTouchCycle] = useState(0);
+
+  const colors = ["rojo", "verde", "azul"];
 
   const handleScrollClick = (e) => {
     e.stopPropagation();
-    setAnimateDani(true); // activamos la animación
+    setAnimateDani(true);
     onScroll();
   };
 
+
+  const handleTouchStart = () => {
+    const nextColor = colors[touchCycle];
+    // Forzamos que se reinicie la animación cada vez
+    setColorClass("");
+    // Esperamos un momento para reiniciar la clase y asegurar que la animación se reinicie si se toca rápidamente
+    setTimeout(() => {
+      setColorClass(`color-animation-${nextColor}`);
+    }, 10);
+  };
+  
+  const handleTouchEnd = () => {
+    setColorClass(""); // Cambio abrupto a negro
+    setTouchCycle((prev) => (prev + 1) % colors.length);
+  };
+
   return (
-    <section
-      className={
-        "section main-page"
-        // isClicked ? "section main-page" : "section main-page"
-      }
-      onClick={onClick}
-    >
+    <section className="section main-page" onClick={onClick}>
       <div className="main-page-content">
         <div className="discount-code-container">
-          <p>Te ganaste un descuento de 20% en nuestra próxima nueva burguer</p>
-          <Button className={"discount-code"}>
+          <div className="discount-text-container">
+            <p>Te ganaste </p>
+            <h3 className={`discount-text ${colorClass} ${withTransition ? "color-transition" : ""}`}>
+  20% OFF
+</h3>
+          </div>
+          <Button
+  className={`discount-code ${colorClass}`}
+  onTouchStart={handleTouchStart}
+  onTouchEnd={handleTouchEnd}
+  onMouseDown={handleTouchStart}
+  onMouseUp={handleTouchEnd}
+>
             <h1>SH-12SD53</h1>
             <small>Sacale Screen, o Click para copiarlo.</small>
           </Button>
         </div>
-        {/* <div className={`dani-container ${isClicked ? "animate-dani" : ""}`}></div> */}
-        <div className={`dani-container ${isClicked ? "animate-dani" : ""} ${animateDani ? "animate-dani-active" : ""}`}></div>
+        <div className="dani-container"></div>
         <div className="button-container">
-        <Button
-            className={"btn btn-main-page "}
-            onClick={handleScrollClick}
-          >
+          <Button className={"btn btn-main-page"} onClick={handleScrollClick}>
             ¿Cómo aplicar el descuento?
           </Button>
         </div>

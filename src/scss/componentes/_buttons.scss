@@ -2,8 +2,9 @@
 :root {
   --red: red;
   --color-principal: #efa52e;
-  --color-principal-sombra: #87602b;
+  --color-principal-sombra: #4E3718;
   --verde: #45b052;
+  --gray-box: #F0F0F0;
 }
 
 button,
@@ -27,7 +28,7 @@ button {
   
   font-weight: 800;
   margin-bottom: 2rem;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   font-size: 1rem;
   z-index: 2;
   border-radius: 0.6rem;
@@ -35,6 +36,9 @@ button {
   color: var(--shadow-color) !important;
   box-shadow: -4px 4px var(--shadow-color);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
+  background: var(--gray-box);
+  // background: var(--gray-box);
+
 
   p,
   h1 {
@@ -46,6 +50,8 @@ button {
   &:active {
     animation: taparSombra .1s ease-out forwards;
   }
+
+
 
   // &.pressed {
   //   transform: translate(-4px, 4px);
@@ -72,7 +78,7 @@ button {
 // }
 
 .discount-code {
-  --shadow-color: #87602b;
+  --shadow-color: #4E3718;
   background-color: $color-principal;
   color: white !important;
   // border: solid 2px var(--shadow-color);
@@ -85,15 +91,15 @@ button {
 }
 
 .btn-main-page {
-  padding: 0.5rem;
+  // padding: 0.5rem;
   @include dev-sm {
-    padding: 0.7rem;
+    // padding: 0.7rem;
   }
   @include dev-md {
-    padding: 0.9rem;
+    // padding: 0.9rem;
   }
   @include dev-lg {
-    padding: 0.9rem;
+    // padding: 0.9rem;
   }
 }
 
@@ -106,4 +112,39 @@ button {
     transform: translate(-4px, 4px);
     box-shadow: 0 0 var(--shadow-color);
   }
+}
+
+@keyframes colorInRojo {
+  0% {
+    color: black;
+  }
+  100% {
+    color: $rojo;
+  }
+}
+@keyframes colorInVerde {
+  0% {
+    color: black;
+  }
+  100% {
+    color: $verde;
+  }
+}
+@keyframes colorInAzul {
+  0% {
+    color: black;
+  }
+  100% {
+    color: $azul;
+  }
+}
+
+.color-animation-rojo {
+  animation: colorInRojo 0.3s ease-out forwards;
+}
+.color-animation-verde {
+  animation: colorInVerde 0.3s ease-out forwards;
+}
+.color-animation-azul {
+  animation: colorInAzul 0.3s ease-out forwards;
 }
