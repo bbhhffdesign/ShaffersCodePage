@@ -53,7 +53,7 @@
     // height: 45vh;
     height: 55svh;
     width: 100vw;
-    background-image: url(./assets/Dani-Habla.png);
+    background-image: url(./assets/svg/dani.png);
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
@@ -65,6 +65,14 @@
     // &.animate-dani {
     //   transform: translateY(-50%); // o lo que quieras mover
     // }
+  }
+  .dani-globo{
+    position: absolute;
+    background-image: url(./assets/svg/dani-globo.png);
+    transform-origin: top top;
+    animation: alertaRotatoria 3.5s ease-in-out infinite reverse;
+
+  
   }
   .button-container {
     // height: 25vh;
@@ -98,24 +106,24 @@
   position: absolute;
   top: 0;
   height: 100dvh;
-  width: 100vw;
+  width: 100%;
   // overflow: visible;
 
-  &::after {
-    content: "";
-    position: absolute;
-    background-color: $color-principal;
-    height: 5rem;
-    width: 100%;
-    bottom: 0px;
-    // border: solid 1px black;
-  }
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   background-color: $color-principal;
+  //   height: 5rem;
+  //   width: 100%;
+  //   bottom: 0px;
+  //   // border: solid 1px black;
+  // }
 }
 
 .wave {
   position: absolute;
   bottom: 0;
-  width: 200vw;
+  width: 200lvw;
   bottom: 0;
   height: 11rem;
   @include dev-xs {
@@ -128,21 +136,21 @@
   }
   @include dev-lg {
     // height: 20rem;
-    height: 18rem;
+    // height: 18rem; 
   }
 }
 
 .wave-1 {
   background: url(./assets/svg/wave-1-1.svg) repeat-x;
-  background-size: 100vw 100%;
-  animation: wave-1 10s infinite linear;
+  background-size: 100lvw 100%;
+  animation: wave-1 1s infinite linear;
   z-index: 1;
 }
 .wave-2 {
   background: url(./assets/svg/wave-back1.png) repeat-x;
   bottom: 10%;
-  background-size: 100vw 100%;
-  animation: wave-1 30s infinite linear backwards;
+  background-size: 100lvw 100%;
+  animation: wave-1 3s infinite linear backwards;
   // transform: translateY(5rem);
   // z-index: 2;
 }
@@ -163,4 +171,18 @@
   100% {
     transform: translateX(100vw);
   }
+}
+@keyframes alertaRotatoria {
+  0%   { transform: rotate(0deg); }
+  3%  { transform: rotate(.5deg); }
+  6%  { transform: rotate(-.5deg); }
+  9%  { transform: rotate(.75deg); }
+  12%  { transform: rotate(-.75deg); }
+  15%  { transform: rotate(.5deg); }
+  18%  { transform: rotate(-.5deg); }
+  21%  { transform: rotate(1deg); }
+  24%  { transform: rotate(-1deg); }
+  27%  { transform: rotate(.5deg); }
+  30%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); } /* del 50% al 100% está quieto */
 }
