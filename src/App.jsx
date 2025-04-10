@@ -58,7 +58,7 @@ function App() {
 
 
   const handleMainClick = () => {
-    if (translateY === 70) {
+    if (translateY === 78) {
       setIsClicked(false); // volver a posición original
         scrollToY(0);
   
@@ -70,11 +70,11 @@ function App() {
     setGoToLoading(true);
   
     setTimeout(() => {
-      scrollToY(200);
+      // scrollToY(200);
     }, 400);
   
     setTimeout(() => {
-      window.location.href = 'https://www.instagram.com/shaffers.co/';
+      // window.location.href = 'https://www.instagram.com/shaffers.co/';
       // location.reload(); 
     }, 1500);
   };
@@ -121,7 +121,7 @@ function App() {
           onClick={handleMainClick}
           onScroll={() => {
             setIsClicked(true);
-            scrollToY(70);
+            scrollToY(78);
           }}
           isClicked={isClicked}
         />

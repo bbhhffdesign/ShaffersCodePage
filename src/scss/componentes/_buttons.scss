@@ -93,7 +93,9 @@ button {
 }
 
 .btn-main-page {
-  min-width: 250px;
+  margin-bottom: 1rem;
+  min-width: 70%;
+  // max-width: 300px;
 
   // padding: 0.5rem;
   @include dev-sm {
@@ -118,3 +120,50 @@ button {
   }
 }
 
+.instagram-button {
+  --shadow-color: black;
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  background: $gris;
+  margin-bottom: 1rem;
+  
+  // &::after{
+    //   content: "";
+    //   position: absolute;
+    //   inset: 0;
+    //   background-color: red;
+    //   background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    //   // transition: all 3s linear;
+    //   // transform: rotate(45deg);
+    // }
+    
+    .icon {
+    transition: background 3s ease;
+    display: inline-block;
+    height: clamp(1rem, -0.8rem + 8vw, 1.6rem);
+    transform: scale(1.4);
+    transition: none !important;
+  }
+
+  &:active {
+    color: white !important;
+    background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    background-size: 100% 100%;
+    // animation: taparSombra 0.1s ease-out forwards !important;
+    // transition: background 2s ease;
+
+    .icon {
+      filter: invert(100%);
+    }
+  }
+}
+
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

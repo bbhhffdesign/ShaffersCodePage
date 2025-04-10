@@ -40,7 +40,7 @@
       gap: 0.2rem;
       h1 {
         line-height: 100%;
-        margin: 0;
+        margin: 0 1rem;
         font-size: clamp(2rem, -4.923rem + 30.769vw, 3rem);
       }
       small {
@@ -54,7 +54,7 @@
     // height: 45vh;
     height: 55svh;
     width: 100vw;
-    background-image: url(./assets/svg/dani.png);
+    background-image: url(./assets/svg/dani.webp);
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
@@ -66,10 +66,17 @@
     // &.animate-dani {
     //   transform: translateY(-50%); // o lo que quieras mover
     // }
+    transition: transform 0.6s ease-in-out;
   }
+
+  .dani-container.animated {
+    transform: translateY(-200px);
+    transition: transform 0.6s ease-in-out;
+  }
+
   .dani-globo{
     position: absolute;
-    background-image: url(./assets/svg/dani-globo.png);
+    background-image: url(./assets/svg/dani-globo.webp);
     transform-origin: top top;
     animation: alertaRotatoria 3.5s ease-in-out infinite reverse;
 
@@ -83,7 +90,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $color-principal;
+    // background-color: $color-principal;
   }
 }
 
@@ -121,6 +128,8 @@
   // }
 }
 
+
+
 .wave {
   position: absolute;
   bottom: 0;
@@ -142,19 +151,30 @@
 }
 
 .wave-1 {
-  background: url(./assets/svg/wave-front1.png) repeat-x;
+  background: url(./assets/svg/wave-front1-2.webp) repeat-x;
   background-size: 100lvw 100%;
   animation: wave-1 12s infinite linear;
   z-index: 1;
 }
 .wave-2 {
-  background: url(./assets/svg/wave-back1.png) repeat-x;
+  background: url(./assets/svg/wave-back1-2.webp) repeat-x;
   bottom: 10%;
   background-size: 100lvw 100%;
   animation: wave-1 30s infinite linear backwards;
   // transform: translateY(5rem);
   // z-index: 2;
+  // transform: rotate(45deg);
 }
+.wave-1,
+.wave-2 {
+  transition: bottom 0.6s ease-in-out;
+}
+
+.wave-animated {
+  // transform: translateY(5rem)
+  bottom: -1rem;
+}
+
 
 @keyframes wave-1 {
   0% {

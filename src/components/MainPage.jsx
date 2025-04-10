@@ -3,6 +3,7 @@ import { Background } from "./Background";
 import Button from "./Button";
 
 function MainPage({ onClick, onScroll, isClicked }) {
+  const [animate, setAnimate] = useState(false);
   const specialColors = ["#EFA52E", "#1AB4B3", "#45B052", "#E51F24"];
   const patternColors = ["#000"];
   specialColors.forEach((color, index) => {
@@ -24,16 +25,15 @@ function MainPage({ onClick, onScroll, isClicked }) {
     e.stopPropagation();
 
     if (!hasScrolled) {
-      // Primera vez: hacé scroll hacia la sección
+      setAnimate((prev) => !prev);
       onScroll();
       setHasScrolled(true);
     } else {
-      // Segunda vez: volvemos al código y disparamos el onClick
+      setAnimate((prev) => !prev);
       if (onClick) onClick();
       setHasScrolled(false);
     }
   };
-
 
   return (
     <section className="section main-page">
@@ -53,20 +53,27 @@ function MainPage({ onClick, onScroll, isClicked }) {
             }}
           >
             <h1>SH-12SD53</h1>
-            <small>Sacale Screen, o Click para copiarlo.</small>
+            <small>{isPressed ? "Codigo copiado" : "Sacale Screen, o Click para copiarlo."}</small>
           </Button>
         </div>
-        <div className="dani-container">
+        <div className={`dani-container ${animate ? "animated" : ""}`}>
           <div className="dani-container dani-globo"></div>
         </div>
 
         <div className="button-container">
-          <Button className="btn btn-main-page" onClick={handleScrollClick}>
-          {hasScrolled ? "VOLVER AL CÓDIGO  " : "¿Cómo aplicar el descuento?"}
+          <Button
+            className="btn btn-main-page"
+            onPointerUp={(e) => {
+              if (e.pointerType === "mouse" || e.pointerType === "touch") {
+                handleScrollClick(e);
+              }
+            }}
+          >
+            {hasScrolled ? "VOLVER AL CÓDIGO  " : "¿Que hago con el código?"}
           </Button>
         </div>
       </div>
-      <Background />
+      <Background animate={animate} />
     </section>
   );
 }
