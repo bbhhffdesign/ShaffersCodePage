@@ -521,12 +521,20 @@ button:active {
   }
 }
 @-webkit-keyframes invertColor {
+  1% {
+    -webkit-filter: invert(1);
+            filter: invert(1);
+  }
   100% {
     -webkit-filter: invert(1);
             filter: invert(1);
   }
 }
 @keyframes invertColor {
+  1% {
+    -webkit-filter: invert(1);
+            filter: invert(1);
+  }
   100% {
     -webkit-filter: invert(1);
             filter: invert(1);

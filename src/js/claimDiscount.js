@@ -121,10 +121,10 @@ export const claimDiscount = async () => {
   // Verificamos si ya hay algún match
   const queries = [
     query(claimsRef, where("fingerprint", "==", fingerprint)),
-    query(claimsRef, where("ip", "==", ip)),
-    query(claimsRef, where("userAgent", "==", userAgent)),
-    query(claimsRef, where("language", "==", language)),
     query(claimsRef, where("deviceHash", "==", deviceHash))
+    // query(claimsRef, where("ip", "==", ip)),
+    // query(claimsRef, where("userAgent", "==", userAgent)),
+    // query(claimsRef, where("language", "==", language)),
   ];
 
   const results = await Promise.all(queries.map(getDocs));

@@ -146,10 +146,12 @@ button {
 @keyframes invertColor {
   0%{
   }
+  1%{
+    filter: invert(1);
+  }
   100%{
     // opacity: 0;
     filter: invert(1);
-    // filter: invert(0);
   }
 }
 
