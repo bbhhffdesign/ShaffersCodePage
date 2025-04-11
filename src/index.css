@@ -664,24 +664,6 @@ button:active {
       justify-content: center;
 }
 
-.loading-page {
-  background: #EFA52E;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-      align-items: center;
-  -ms-flex-pack: center;
-      justify-content: center;
-}
-.loading-page .loading-page-logo {
-  height: 20vh;
-  width: 20vh;
-  background-image: url(./assets/shaffers-logo.png);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 .background {
   position: absolute;
   top: 0;
