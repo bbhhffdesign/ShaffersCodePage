@@ -159,9 +159,10 @@ export const claimDiscount = async () => {
     timezone,
     deviceHash,
     code: codeData.code,
+    price: codeData.price,
     claimedAt: new Date(),
   });
 
   console.log("Código asignado:", codeData.code);
-  return { code: codeData.code, alreadyClaimed: false };
+return { code: codeData.code, price: codeData.price, alreadyClaimed: false };
 };
