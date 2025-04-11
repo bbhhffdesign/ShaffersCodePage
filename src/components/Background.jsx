@@ -15,7 +15,6 @@
 // import './main-page.scss'; // o el nombre correcto
 
 export const Background = ({ animate }) => {
-  console.log(animate);
   
   return (
     <div className="background">

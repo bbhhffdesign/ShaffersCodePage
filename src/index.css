@@ -1,4 +1,74 @@
 @charset "UTF-8";
+html {
+  -webkit-tap-highlight-color: transparent;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  box-sizing: border-box;
+}
+
+p {
+  text-align: center;
+  font-size: clamp(1rem, -0.8rem + 8vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 1rem;
+}
+
+.price {
+  margin: 0;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+small {
+  font-size: clamp(0.8rem, 0.2rem + 2.667vw, 1rem);
+}
+
+.app {
+  overflow: hidden;
+  height: 100svh;
+  width: 100vw;
+  position: relative;
+}
+
+.sections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  transition: -webkit-transform 0.6s cubic-bezier(0.89, 0.17, 0.54, 0.91);
+  transition: transform 0.6s cubic-bezier(0.89, 0.17, 0.54, 0.91);
+  transition: transform 0.6s cubic-bezier(0.89, 0.17, 0.54, 0.91), -webkit-transform 0.6s cubic-bezier(0.89, 0.17, 0.54, 0.91);
+}
+
+.section {
+  height: 100svh;
+  width: 100vw;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  font-size: 2rem;
+}
+
+.hidden-button {
+  display: none;
+}
+
+.nav-bar-device {
+  position: relative;
+  height: 5rem;
+  background-color: red;
+  width: 100%;
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -344,7 +414,7 @@ button {
   z-index: 2;
   border-radius: 0.6rem;
   border: solid 2px var(--shadow-color);
-  color: var(--shadow-color) !important;
+  color: var(--shadow-color);
   box-shadow: -4px 4px var(--shadow-color);
   transition: box-shadow 0.1s ease, -webkit-transform 0.1s ease;
   transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -404,6 +474,62 @@ button:active {
     box-shadow: 0 0 var(--shadow-color);
   }
 }
+@-webkit-keyframes taparSombraGradient {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+    box-shadow: -4px 4px var(--shadow-color);
+    background-position: 0% 0%;
+    background: #f0f0f0;
+    color: #f0f0f0;
+  }
+  50% {
+    background-position: 100% 100%;
+    background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  }
+  100% {
+    -webkit-transform: translate(-4px, 4px);
+            transform: translate(-4px, 4px);
+    box-shadow: 0 0 var(--shadow-color);
+    background: #EFA52E;
+    border: solid 2px rgba(255, 255, 255, 0);
+    color: white;
+  }
+}
+@keyframes taparSombraGradient {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+    box-shadow: -4px 4px var(--shadow-color);
+    background-position: 0% 0%;
+    background: #f0f0f0;
+    color: #f0f0f0;
+  }
+  50% {
+    background-position: 100% 100%;
+    background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  }
+  100% {
+    -webkit-transform: translate(-4px, 4px);
+            transform: translate(-4px, 4px);
+    box-shadow: 0 0 var(--shadow-color);
+    background: #EFA52E;
+    border: solid 2px rgba(255, 255, 255, 0);
+    color: white;
+  }
+}
+@-webkit-keyframes invertColor {
+  100% {
+    -webkit-filter: invert(1);
+            filter: invert(1);
+  }
+}
+@keyframes invertColor {
+  100% {
+    -webkit-filter: invert(1);
+            filter: invert(1);
+  }
+}
 .instagram-button {
   --shadow-color: black;
   display: -ms-flexbox;
@@ -411,43 +537,24 @@ button:active {
   gap: 1rem;
   position: relative;
   background: #f0f0f0;
-  margin-bottom: 1rem;
+  -webkit-animation: none !important;
+          animation: none !important;
 }
 .instagram-button .icon {
-  transition: background 3s ease;
   display: inline-block;
   height: clamp(1rem, -0.8rem + 8vw, 1.6rem);
   -webkit-transform: scale(1.4);
           transform: scale(1.4);
-  transition: none !important;
 }
-.instagram-button:active {
-  color: white !important;
-  background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  background-size: 100% 100%;
+.instagram-button .icon.activo-img {
+  -webkit-animation: invertColor 0.6s ease forwards;
+          animation: invertColor 0.6s ease forwards;
 }
-.instagram-button:active .icon {
-  -webkit-filter: invert(100%);
-          filter: invert(100%);
+.instagram-button.activo {
+  -webkit-animation: taparSombraGradient 0.6s linear forwards !important;
+          animation: taparSombraGradient 0.6s linear forwards !important;
 }
 
-@-webkit-keyframes gradientWave {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes gradientWave {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
 .main-page {
   background: none;
 }
@@ -476,10 +583,24 @@ button:active {
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
+.main-page-content .discount-code-container .discount-text-container {
+  width: 100%;
+}
 .main-page-content .discount-code-container .discount-text-container h3,
-.main-page-content .discount-code-container .discount-text-container h5 {
+.main-page-content .discount-code-container .discount-text-container h5,
+.main-page-content .discount-code-container .discount-text-container h4 {
   text-align: center;
   margin: 0;
+  font-weight: 800;
+}
+.main-page-content .discount-code-container .discount-text-container .daniel-te-regala {
+  margin-top: 1rem;
+  height: 3rem;
+  width: 100%;
+  background-image: url(./assets/svg/dani-te-regala.webp);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .main-page-content .discount-code-container .discount-code {
   margin: 0;
@@ -748,6 +869,7 @@ button:active {
 .terms-page-content {
   z-index: 1;
   top: 0;
+  min-height: inherit;
   width: 100vw;
   background-color: #EFA52E;
   display: -ms-flexbox;
@@ -779,73 +901,4 @@ button:active {
 .terms-page-content .instagram-button {
   -ms-flex: 1;
       flex: 1;
-}
-
-html {
-  -webkit-tap-highlight-color: transparent;
-  -ms-touch-action: manipulation;
-      touch-action: manipulation;
-}
-
-body {
-  margin: 0;
-}
-
-* {
-  font-family: "M PLUS Rounded 1c", sans-serif;
-}
-
-p {
-  text-align: center;
-  font-size: clamp(1rem, -0.8rem + 8vw, 1.6rem);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  margin-bottom: 1rem;
-}
-
-.price {
-  margin: 0;
-  font-family: "M PLUS Rounded 1c", sans-serif;
-}
-
-small {
-  font-size: clamp(0.8rem, 0.2rem + 2.667vw, 1rem);
-}
-
-.app {
-  overflow: hidden;
-  height: 100svh;
-  width: 100vw;
-  position: relative;
-}
-
-.sections {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  transition: -webkit-transform 0.6s ease-in-out;
-  transition: transform 0.6s ease-in-out;
-  transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
-}
-
-.section {
-  height: 100svh;
-  width: 100vw;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  font-size: 2rem;
-}
-
-.hidden-button {
-  display: none;
-}
-
-.nav-bar-device {
-  position: relative;
-  height: 5rem;
-  background-color: red;
-  width: 100%;
 }

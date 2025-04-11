@@ -33,7 +33,7 @@ button {
   z-index: 2;
   border-radius: 0.6rem;
   border: solid 2px var(--shadow-color);
-  color: var(--shadow-color) !important;
+  color: var(--shadow-color) ;
   box-shadow: -4px 4px var(--shadow-color);
   transition: transform 0.1s ease, box-shadow 0.1s ease;
   background: var(--gray-box);
@@ -119,6 +119,38 @@ button {
     box-shadow: 0 0 var(--shadow-color);
   }
 }
+@keyframes taparSombraGradient {
+  0% {
+    transform: translate(0, 0);
+    box-shadow: -4px 4px var(--shadow-color);
+    background-position: 0% 0%;
+    background: $gris;
+    color: $gris;
+  }
+  50%{
+    background-position: 100% 100%;
+    background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    // border: inherit;
+    
+  }
+  // 99%{}
+  100% {
+    transform: translate(-4px, 4px);
+    box-shadow: 0 0 var(--shadow-color);
+    background: $color-principal;
+    border: solid 2px rgba(255, 255, 255, 0);
+    color: white;
+  }
+}
+@keyframes invertColor {
+  0%{
+  }
+  100%{
+    // opacity: 0;
+    filter: invert(1);
+    // filter: invert(0);
+  }
+}
 
 .instagram-button {
   --shadow-color: black;
@@ -126,44 +158,24 @@ button {
   gap: 1rem;
   position: relative;
   background: $gris;
-  margin-bottom: 1rem;
-  
-  // &::after{
-    //   content: "";
-    //   position: absolute;
-    //   inset: 0;
-    //   background-color: red;
-    //   background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    //   // transition: all 3s linear;
-    //   // transform: rotate(45deg);
-    // }
-    
+  // margin-bottom: 1rem;
+  animation: none !important;
+
+
+
     .icon {
-    transition: background 3s ease;
     display: inline-block;
     height: clamp(1rem, -0.8rem + 8vw, 1.6rem);
     transform: scale(1.4);
-    transition: none !important;
-  }
 
-  &:active {
-    color: white !important;
-    background: linear-gradient(270deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    background-size: 100% 100%;
-    // animation: taparSombra 0.1s ease-out forwards !important;
-    // transition: background 2s ease;
-
-    .icon {
-      filter: invert(100%);
+    &.activo-img {
+      animation: invertColor .6s ease forwards;
     }
   }
-}
 
-@keyframes gradientWave {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
+
+  &.activo {
+    animation: taparSombraGradient .6s linear forwards !important;
+
   }
 }

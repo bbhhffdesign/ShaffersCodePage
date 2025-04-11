@@ -70,12 +70,12 @@ function App() {
     setGoToLoading(true);
   
     setTimeout(() => {
-      // scrollToY(200);
-    }, 400);
+      scrollToY(200);
+    }, 600);
   
     setTimeout(() => {
-      // window.location.href = 'https://www.instagram.com/shaffers.co/';
-      // location.reload(); 
+      window.location.href = 'https://www.instagram.com/shaffers.co/';
+      location.reload(); 
     }, 1500);
   };
 

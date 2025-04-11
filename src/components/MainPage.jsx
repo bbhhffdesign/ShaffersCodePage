@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Background } from "./Background";
 import Button from "./Button";
 
@@ -15,10 +15,40 @@ function MainPage({ onClick, onScroll, isClicked }) {
   const [colorIndex, setColorIndex] = useState(0);
   const [isPressed, setIsPressed] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const copiedTimeoutRef = useRef(null);
+  const discountCode = "SH-12SD53";
 
-  // Función para cambiar el color
-  const incrementColor = () => {
+
+   const incrementColor = () => {
     setColorIndex((prev) => (prev + 1) % patternColors.length);
+  };
+
+  const handleDiscountClick = () => {
+    if (!copied) {
+      // 👇 Fallback manual para copiar (compatible con móviles)
+      const textArea = document.createElement("textarea");
+      textArea.value = discountCode;
+      textArea.style.position = "fixed";  // evita scroll en iOS
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+  
+      try {
+        document.execCommand("copy");
+      } catch (err) {
+        console.error("Error copiando texto manualmente:", err);
+      }
+  
+      document.body.removeChild(textArea);
+  
+      // Activamos el mensaje copiado
+      setCopied(true);
+      copiedTimeoutRef.current = setTimeout(() => {
+        setCopied(false);
+      }, 1000);
+    }
   };
 
   const handleScrollClick = (e) => {
@@ -40,22 +70,27 @@ function MainPage({ onClick, onScroll, isClicked }) {
       <div className="main-page-content">
         <div className="discount-code-container">
           <div className="discount-text-container">
-            <h5>Te ganaste </h5>
-            <h3 style={{ color: patternColors[colorIndex] }}>20% OFF</h3>
+            <div className="daniel-te-regala"></div>
+            <h4 style={{ color: patternColors[colorIndex] }}>20% OFF</h4>
           </div>
           <Button
             className={`discount-code ${isPressed ? "tapar-sombra" : ""}`}
-            // Usamos pointer events para unificar el comportamiento
             onPointerDown={() => setIsPressed(true)}
             onPointerUp={() => {
               setIsPressed(false);
               incrementColor();
+              handleDiscountClick(); // NUEVO: activamos el mensaje copiado
             }}
           >
             <h1>SH-12SD53</h1>
-            <small>{isPressed ? "Codigo copiado" : "Sacale Screen, o Click para copiarlo."}</small>
+            <small>
+              {copied
+                ? "Codigo copiado"
+                : "Sacale Screen, o Click para copiarlo."}
+            </small>
           </Button>
         </div>
+
         <div className={`dani-container ${animate ? "animated" : ""}`}>
           <div className="dani-container dani-globo"></div>
         </div>
