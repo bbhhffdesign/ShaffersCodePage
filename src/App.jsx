@@ -103,17 +103,30 @@ function App() {
     }
   };
 
+  // const handleTransitionToLoading = () => {
+  //   setShowLoading(true);
+  //   setGoToLoading(true);
+
+  //   setTimeout(() => {
+  //     scrollToY(200);
+  //   }, 600);
+
+  //   setTimeout(() => {
+  //     // window.location.href = 'https://www.instagram.com/shaffers.co/';
+  //     window.open('https://www.instagram.com/shaffers.co/', '_blank');
+  //     // location.reload();
+  //   }, 1500);
+  // };
   const handleTransitionToLoading = () => {
     setShowLoading(true);
     setGoToLoading(true);
-
+  
     setTimeout(() => {
       scrollToY(200);
     }, 600);
-
+  
     setTimeout(() => {
       window.location.href = 'https://www.instagram.com/shaffers.co/';
-      location.reload();
     }, 1500);
   };
 
