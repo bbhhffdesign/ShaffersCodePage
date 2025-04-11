@@ -122,10 +122,11 @@ button {
 @keyframes taparSombraGradient {
   0% {
     transform: translate(0, 0);
-    box-shadow: -4px 4px var(--shadow-color);
+    box-shadow: -4px 4px $gris;
     background-position: 0% 0%;
     background: $gris;
     color: $gris;
+    border: solid 2px $gris;
   }
   50%{
     background-position: 100% 100%;
@@ -136,7 +137,7 @@ button {
   // 99%{}
   100% {
     transform: translate(-4px, 4px);
-    box-shadow: 0 0 var(--shadow-color);
+    box-shadow: 0 0 $gris;
     background: $color-principal;
     border: solid 2px rgba(255, 255, 255, 0);
     color: white;

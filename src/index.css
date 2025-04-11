@@ -478,10 +478,11 @@ button:active {
   0% {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
-    box-shadow: -4px 4px var(--shadow-color);
+    box-shadow: -4px 4px #f0f0f0;
     background-position: 0% 0%;
     background: #f0f0f0;
     color: #f0f0f0;
+    border: solid 2px #f0f0f0;
   }
   50% {
     background-position: 100% 100%;
@@ -490,7 +491,7 @@ button:active {
   100% {
     -webkit-transform: translate(-4px, 4px);
             transform: translate(-4px, 4px);
-    box-shadow: 0 0 var(--shadow-color);
+    box-shadow: 0 0 #f0f0f0;
     background: #EFA52E;
     border: solid 2px rgba(255, 255, 255, 0);
     color: white;
@@ -500,10 +501,11 @@ button:active {
   0% {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
-    box-shadow: -4px 4px var(--shadow-color);
+    box-shadow: -4px 4px #f0f0f0;
     background-position: 0% 0%;
     background: #f0f0f0;
     color: #f0f0f0;
+    border: solid 2px #f0f0f0;
   }
   50% {
     background-position: 100% 100%;
@@ -512,7 +514,7 @@ button:active {
   100% {
     -webkit-transform: translate(-4px, 4px);
             transform: translate(-4px, 4px);
-    box-shadow: 0 0 var(--shadow-color);
+    box-shadow: 0 0 #f0f0f0;
     background: #EFA52E;
     border: solid 2px rgba(255, 255, 255, 0);
     color: white;
@@ -883,4 +885,22 @@ button:active {
 .terms-page-content .instagram-button {
   -ms-flex: 1;
       flex: 1;
+}
+
+.loading-page {
+  background: #EFA52E;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+.loading-page .loading-page-logo {
+  height: 20vh;
+  width: 20vh;
+  background-image: url(./assets/shaffers-logo.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

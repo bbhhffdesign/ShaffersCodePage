@@ -6,16 +6,7 @@
     align-items: center;
     justify-content: center;
 
-    &::after{
-        position: absolute;
-        content: "";
-        height: 1rem;
-        width: 100%;
-        bottom: 0;
-        background: red;
-        z-index: 2;
-    }
-  
+
     .loading-page-logo {
       height: 20vh;
       width: 20vh;
