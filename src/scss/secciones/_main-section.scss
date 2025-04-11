@@ -31,6 +31,9 @@
         margin: 0;
         font-weight: 800;
     }
+    .price-text{
+      animation: price 2s steps(1, end) infinite;
+    }
 
     .daniel-te-regala{
       margin-top: 1rem;
@@ -54,8 +57,11 @@
       align-items: center;
       gap: 0.2rem;
       h1 {
+        // background-color: red;
         line-height: 100%;
         margin: 0 1rem;
+        width: 70vw;
+        // min-width: 100%;
         font-size: clamp(2rem, -4.923rem + 30.769vw, 3rem);
       }
       small {
@@ -207,4 +213,16 @@
   27%  { transform: rotate(.5deg); }
   30%  { transform: rotate(0deg); }
   100% { transform: rotate(0deg); } /* del 50% al 100% está quieto */
+}
+// #4E3718" : "#EFA52E"
+@keyframes price{
+  0% {
+    color: #EFA52E;
+  }
+  50% {
+    color: #4E3718;
+  }
+  100% {
+    color: #EFA52E;
+  }
 }

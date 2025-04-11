@@ -6,8 +6,9 @@ import TermsPage from "./components/TermsPage";
 
 function App() {
   const [code, setCode] = useState(null);
+  const [price, setPrice] = useState(null);
   const [message, setMessage] = useState("Cargando...");
-  const [isLoading, setIsLoading] = useState(true); // Añadir un estado de carga para evitar múltiples llamadas
+  const [isLoading, setIsLoading] = useState(true);
   ///
   const [translateY, setTranslateY] = useState(100);
   const [initialLoad, setInitialLoad] = useState(true);
@@ -91,6 +92,7 @@ function App() {
         setMessage(res.error);
       } else {
         setCode(res.code);
+        setPrice(res.price); // 👈 nuevo
         setMessage(
           res.alreadyClaimed
             ? "Ya reclamaste tu código:"
@@ -124,6 +126,8 @@ function App() {
             scrollToY(78);
           }}
           isClicked={isClicked}
+          code={code}        // 👈 agregado
+          price={price}      // 👈 agregado
         />
         )}
         {showTerms && (

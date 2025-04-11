@@ -547,6 +547,7 @@ button:active {
   gap: 1rem;
   position: relative;
   background: #f0f0f0;
+  min-width: 50%;
   -webkit-animation: none !important;
           animation: none !important;
 }
@@ -603,6 +604,10 @@ button:active {
   margin: 0;
   font-weight: 800;
 }
+.main-page-content .discount-code-container .discount-text-container .price-text {
+  -webkit-animation: price 2s steps(1, end) infinite;
+          animation: price 2s steps(1, end) infinite;
+}
 .main-page-content .discount-code-container .discount-text-container .daniel-te-regala {
   margin-top: 1rem;
   height: 3rem;
@@ -627,6 +632,7 @@ button:active {
 .main-page-content .discount-code-container .discount-code h1 {
   line-height: 100%;
   margin: 0 1rem;
+  width: 70vw;
   font-size: clamp(2rem, -4.923rem + 30.769vw, 3rem);
 }
 .main-page-content .discount-code-container .discount-code small {
@@ -853,6 +859,28 @@ button:active {
     -webkit-transform: rotate(0deg);
             transform: rotate(0deg);
   } /* del 50% al 100% está quieto */
+}
+@-webkit-keyframes price {
+  0% {
+    color: #EFA52E;
+  }
+  50% {
+    color: #4E3718;
+  }
+  100% {
+    color: #EFA52E;
+  }
+}
+@keyframes price {
+  0% {
+    color: #EFA52E;
+  }
+  50% {
+    color: #4E3718;
+  }
+  100% {
+    color: #EFA52E;
+  }
 }
 .terms-page {
   background-color: #EFA52E;
