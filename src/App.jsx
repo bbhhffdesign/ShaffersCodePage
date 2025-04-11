@@ -48,17 +48,14 @@ function App() {
 
       if (res.error) {
         setHasError(true);
-        setMessage("Tenés que entrar desde un celular"); // ✅ mensaje genérico
+        setMessage("Tenés que entrar desde un celular");
         return;
       }
-
+      
       setCode(res.code);
       setPrice(res.price);
-      setMessage(
-        res.alreadyClaimed
-          ? "Ya reclamaste tu código:"
-          : "¡Aquí está tu código de descuento!"
-      );
+      // 👇 No seteamos ningún mensaje si no hubo error
+      setMessage(""); 
       setDataLoaded(true);
     };
 
@@ -140,12 +137,16 @@ function App() {
           />
         )}
         {showTerms && (
-          <TermsPage onGoToLoading={handleTransitionToLoading} isClicked={isClicked} />
+          <TermsPage
+            onGoToLoading={handleTransitionToLoading}
+            isClicked={isClicked}
+          />
         )}
-        {showLoading && <LoadingPage message={message} />}
+        {showLoading && <LoadingPage message={hasError ? message : ""} />}
       </div>
     </div>
   );
+  
 }
 
 export default App;
