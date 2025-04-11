@@ -75,19 +75,69 @@ const isIPFromBuenosAires = async (ip) => {
     return false;
   }
 };
+const isViewportSuspicious = () => {
+  const screenHeight = window.screen.height;
+  const innerHeight = window.innerHeight;
+  const heightDifference = screenHeight - innerHeight;
+
+  // Si la diferencia es menor a un umbral (por ejemplo, 100 píxeles), podría ser una simulación
+  return heightDifference < 100;
+};
+
+const isLikelyEmulatedMobile = () => {
+  const ratio = window.screen.width / window.innerWidth;
+  return ratio > 1.2 || ratio < 0.8;
+};
+
+const hasTouchSupport = () => {
+  return (
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+};
+
+const userAgentMismatch = () => {
+  if (navigator.userAgentData && navigator.userAgent) {
+    return !navigator.userAgentData.mobile && /Mobi|Android/i.test(navigator.userAgent);
+  }
+  return false;
+};
+
+const isSuspiciousMobileSim = () => {
+  return (
+    isViewportSuspicious()  
+    // isDevToolsOpen() || // ya lo tenías
+    // detectDevToolsViaConsole() ||  // ya lo tenías
+    // !hasTouchSupport() ||
+    // userAgentMismatch() 
+    // isLikelyEmulatedMobile() 
+  );
+};
 
 // Función principal
 export const claimDiscount = async () => {
   // ✅ Bloqueo por DevTools
+  if (isSuspiciousMobileSim()) {
+    console.log("Simulación de móvil o DevTools detectada. Acceso denegado.1");
+    return { error: "Acceso denegado por posible emulación o uso de herramientas de desarrollo.1" };
+  }
+
+  // ✅ Solo desde dispositivos móviles reales
+  if (!isMobile()) {
+    console.log("Dispositivo no móvil. Acceso denegado.2");
+    return { error: "Solo se permite el acceso desde dispositivos móviles reales.2" };
+  }
+
   if (isDevToolsOpen() || detectDevToolsViaConsole()) {
-    console.log("DevTools detectado. Acceso denegado.");
-    return { error: "Acceso denegado por herramientas de desarrollo." };
+    console.log("DevTools detectado. Acceso denegado.3");
+    return { error: "Acceso denegado por herramientas de desarrollo.3" };
   }
 
   // ✅ Solo desde dispositivos móviles
   if (!isMobile()) {
-    console.log("Dispositivo no móvil. Acceso denegado.");
-    return { error: "Solo se permite el acceso desde dispositivos móviles." };
+    console.log("Dispositivo no móvil. Acceso denegado.4");
+    return { error: "Solo se permite el acceso desde dispositivos móviles.4" };
   }
 
   const fingerprint = await getFingerprint();
@@ -100,7 +150,7 @@ export const claimDiscount = async () => {
   // ✅ Bloqueo si no es de Buenos Aires
   const isFromBA = await isIPFromBuenosAires(ip);
   if (!isFromBA) {
-    console.log("IP fuera de Buenos Aires. Acceso denegado.");
+    console.log("IP fuera de Buenos Aires. Acceso denegado.5");
     return { error: "Acceso restringido solo a Buenos Aires, Argentina." };
   }
 
