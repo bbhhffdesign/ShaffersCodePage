@@ -1,6 +1,15 @@
+:root {
+  color-scheme: only light;
+}
+
 html {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    // color-scheme: light;
+    background-color: #fff;
+    color: #000;
+    --webkit-text-fill-color: #000; /* en caso de que se aplique un filtro */
+    filter: none !important;
   }
   body{
       margin: 0;

@@ -7,6 +7,14 @@
     justify-content: center;
 
 
+    .error-msj{
+      position: absolute;
+      bottom: 2rem;
+      color: $gris;
+      // background-color: red;
+    }
+
+
     .loading-page-logo {
       height: 20vh;
       width: 20vh;

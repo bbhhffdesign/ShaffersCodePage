@@ -2,17 +2,34 @@ import { collection, getDocs, query, where, addDoc, doc, updateDoc } from "fireb
 import { db } from "../config/firebase";
 import { getFingerprint } from "./fingerprintjs";
 
+// Función para loguear intentos bloqueados
+const logAttempt = async ({ fingerprint, reason, userAgent }) => {
+  try {
+    await addDoc(collection(db, "logs"), {
+      fingerprint,
+      reason,
+      userAgent,
+      timestamp: new Date(),
+    });
+  } catch (error) {
+    console.warn("Error logueando intento denegado:", error);
+  }
+};
 
-// Verificaciones de entorno
-const isMobile = () => /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// Utils
 const isiOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+const isMobile = () => /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const isDevToolsOpen = () => {
+  if (isiOS()) return false; // 🚫 evitar falsos positivos en iOS
   const threshold = 160;
-  return (window.outerWidth - window.innerWidth > threshold) || (window.outerHeight - window.innerHeight > threshold);
+  return (window.outerWidth - window.innerWidth > threshold) ||
+         (window.outerHeight - window.innerHeight > threshold);
 };
 
 const detectDevToolsViaConsole = () => {
+  if (isiOS()) return false; // 🚫 prevenir falsos positivos
   let devtoolsOpen = false;
   const element = new Image();
   Object.defineProperty(element, 'id', {
@@ -47,7 +64,7 @@ const userAgentMismatch = () => {
 };
 
 const isSuspiciousMobileSim = () => {
-  if (isiOS()) return false; // ⬅️ IMPORTANTE: evitamos falsos positivos en iOS
+  if (isiOS()) return false; // evitar falsos positivos en iOS
   return (
     isViewportSuspicious() ||
     !hasTouchSupport() ||
@@ -58,19 +75,23 @@ const isSuspiciousMobileSim = () => {
 
 // Función principal
 export const claimDiscount = async () => {
+  const fingerprint = await getFingerprint();
+  const userAgent = navigator.userAgent;
+
   if (!isMobile()) {
+    await logAttempt({ fingerprint, reason: "No es dispositivo móvil", userAgent });
     return { error: "Solo se permite desde dispositivos móviles reales." };
   }
 
   if (isDevToolsOpen() || detectDevToolsViaConsole()) {
+    await logAttempt({ fingerprint, reason: "DevTools abiertos", userAgent });
     return { error: "Acceso denegado por uso de herramientas de desarrollo." };
   }
 
   if (isSuspiciousMobileSim()) {
+    await logAttempt({ fingerprint, reason: "Simulación de móvil sospechosa", userAgent });
     return { error: "Acceso denegado por simulación de dispositivo móvil." };
   }
-
-  const fingerprint = await getFingerprint();
 
   const claimsRef = collection(db, "claims");
   const existingSnap = await getDocs(query(claimsRef, where("fingerprint", "==", fingerprint)));

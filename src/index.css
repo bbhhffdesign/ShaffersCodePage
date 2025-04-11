@@ -1,8 +1,17 @@
 @charset "UTF-8";
+:root {
+  color-scheme: only light;
+}
+
 html {
   -webkit-tap-highlight-color: transparent;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
+  background-color: #fff;
+  color: #000;
+  --webkit-text-fill-color: #000; /* en caso de que se aplique un filtro */
+  -webkit-filter: none !important;
+          filter: none !important;
 }
 
 body {
@@ -931,6 +940,11 @@ button:active {
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
+}
+.loading-page .error-msj {
+  position: absolute;
+  bottom: 2rem;
+  color: #f0f0f0;
 }
 .loading-page .loading-page-logo {
   height: 20vh;
